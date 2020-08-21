@@ -7,6 +7,7 @@ on:
 jobs:
   terrascan:
      name: 'terrascan'
+     runs-on: ubuntu-latest
      steps: 
        - name: 'Run Terrascan'
          run: |
