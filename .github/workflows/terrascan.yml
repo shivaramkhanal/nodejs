@@ -15,6 +15,6 @@ jobs:
            cd terrascan
            make build 
            ./bin/terrascan
-           terrascan scan -t aws 
+           ./bin/terrascan scan -t aws 
      
    
