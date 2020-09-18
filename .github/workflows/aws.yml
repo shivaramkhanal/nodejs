@@ -1,5 +1,6 @@
 # This workflow will build and push a new container image to Amazon ECR,
 name: 'GitHub Actions to build and push docker image to ECR'
+
 on: 
   workflow_dispatch:
     inputs:
