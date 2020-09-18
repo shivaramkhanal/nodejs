@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       git-ref:
-        description: Git Ref (Optional)    
-        required: false
+        description: Git Ref     
+        required: true
              
 jobs:
   deploy:
@@ -29,7 +29,7 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: get_version
-      run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
