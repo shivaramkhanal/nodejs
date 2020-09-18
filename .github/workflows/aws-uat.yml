@@ -1,0 +1,54 @@
+# This workflow will build and push a new container image to Amazon ECR,
+name: 'GitHub Actions to build and push docker image to ECR'
+
+on: 
+  push:
+    tags:
+      - v*.*.* 
+                   
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Get Git Tag 
+      id: get_version
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_UAT }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_UAT }}
+        aws-region: us-east-1
+    
+    - name: Pull the Image from Dev ECR
+      id: login-ecr-dev
+      run: |
+        docker login -u{secrets.username} -p {secrets.password} ${ECR_DEV_REGISTRY}
+        docker pull ${ECR_DEV_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+      env:
+        ECR_DEV_REGISTRY: ${{ secrets.registry }}
+        ECR_REPOSITORY: nodejs
+        IMAGE_TAG: ${{ steps.get_version.outputs.tag }}
+        
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      
+    - name: Tag, and push image to UAT Amazon ECR
+      id: build-image
+      run: |
+        set -x
+        docker tag $ECR_DEV_REGISTRY/ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_DEV_REGISTRY: ${{ secrets.registry }}
+        ECR_REPOSITORY: nodejs
+        IMAGE_TAG: ${{ steps.get_version.outputs.tag }} 
