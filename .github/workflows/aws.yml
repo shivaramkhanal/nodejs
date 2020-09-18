@@ -1,10 +1,11 @@
 # This workflow will build and push a new container image to Amazon ECR,
 name: 'GitHub Actions to build and push docker image to ECR'
-on:
-  push:
-    branches:
-      - master
-
+on: 
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)    
+        required: false
              
 jobs:
   deploy:
@@ -26,9 +27,9 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-#     - name: Build, tag, and push image to Amazon ECR
-#       id: get_version
-#       run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
+    - name: Build, tag, and push image to Amazon ECR
+      id: get_version
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
       
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
