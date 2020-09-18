@@ -2,8 +2,8 @@
 name: 'GitHub Actions to build and push docker image to ECR'
 on:
   push:
-    tags:
-      - 1.0
+    branches:
+      - master
       
 jobs:
   deploy:
@@ -27,7 +27,7 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: get_version
-      run: echo ::set-env name=tag::$(echo ${GITHUB_REF:10})
+      run: echo ::set-env name=tag::$(echo ${git tag --points-at HEAD})
       
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
