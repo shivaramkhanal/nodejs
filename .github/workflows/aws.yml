@@ -4,9 +4,6 @@ name: 'GitHub Actions to build and push docker image to ECR'
 on: 
   workflow_dispatch:
     inputs:
-      git-ref:
-        description: Git Ref     
-        required: false
     tags:
        description: 'Test scenario tags' 
              
