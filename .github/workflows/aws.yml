@@ -30,7 +30,8 @@ jobs:
       id: get_version
       run: |
         set -x 
-        git tag |tail -1 
+        git tag |tail -1 > tag
+        head -2 tag 
         echo ::set-output name=tag::${tag}
       
     - name: Build, tag, and push image to Amazon ECR
