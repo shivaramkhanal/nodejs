@@ -28,11 +28,7 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: get_version
-      run: |
-        set -x 
-        git tag |tail -1 > tag
-        head -2 tag 
-        echo ::set-output name=tag::${tag}
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
