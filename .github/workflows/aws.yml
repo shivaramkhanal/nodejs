@@ -39,7 +39,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: nodejs
-        IMAGE_TAG: ${{ env.RELEASE_VERSION }}       
+        IMAGE_TAG: ${{ env.GITHUB_RUN_ID }}       
 
    
 #    - name: Fill in the new image ID in the Amazon ECS task definition
