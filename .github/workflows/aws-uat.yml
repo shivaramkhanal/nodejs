@@ -2,14 +2,9 @@
 name: 'GitHub Actions to build and push docker image to ECR'
 
 on: 
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'  
+  push:
+    branches:
+     - master
                    
 jobs:
   deploy:
@@ -22,7 +17,7 @@ jobs:
       
     - name: Get Git Tag 
       id: get_version
-      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      run: echo ::set-output name=tag::v2.0.0
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
