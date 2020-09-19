@@ -29,10 +29,10 @@ jobs:
     - name: Pull the Image from Dev ECR
       id: login-ecr-dev
       run: |
-        docker login -u{secrets.username} -p {secrets.password} ${ECR_DEV_REGISTRY}
+        docker login -u{secrets.USERNAME} -p {secrets.PASSWORD} ${ECR_DEV_REGISTRY}
         docker pull ${ECR_DEV_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
       env:
-        ECR_DEV_REGISTRY: ${{ secrets.registry }}
+        ECR_DEV_REGISTRY: ${{ secrets.REGISTRY }}
         ECR_REPOSITORY: nodejs
         IMAGE_TAG: ${{ steps.get_version.outputs.tag }}
         
