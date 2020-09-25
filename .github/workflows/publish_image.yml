@@ -15,5 +15,8 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
-          repository: docker.pkg.github.com/rupesh2010/nodejs/nodejs
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: rupesh2010/nodejs/nodejs
           tag_with_sha: true
