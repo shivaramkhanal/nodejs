@@ -43,7 +43,7 @@ jobs:
       run: |
         docker login -u$username -p $password $registry
         docker tag $registry/$repository:$IMAGE_TAG
-      with:
+      env:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
