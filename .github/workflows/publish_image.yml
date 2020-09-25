@@ -15,5 +15,5 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
-          repository: Rupesh2010/nodejs/nodejs
+          repository: rupesh2010/nodejs/nodejs
           tag_with_sha: true
