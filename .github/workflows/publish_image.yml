@@ -1,7 +1,9 @@
 name: Publish Docker image
 on:
-  release:
-    types: [published]
+  push:
+    branches: 
+      - v1.0.0.0
+    
 jobs:
   push_to_registries:
     name: Push Docker image to multiple registries
@@ -14,4 +16,4 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           repository: Rupesh2010/nodejs/nodejs
-          tag_with_ref: true
+          tag_with_sha: true
