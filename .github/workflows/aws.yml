@@ -42,7 +42,7 @@ jobs:
     - name: Push to GitHub Packages
       run: |
         docker login -u$username -p $password $registry
-        docker tag $repository:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker tag  $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $registry/$repository:$IMAGE_TAG
       env:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
