@@ -48,8 +48,6 @@ jobs:
         ECR_REPOSITORY: helloworld
         IMAGE_TAG: ${{ github.sha }}
           
-    - name: Push Docker image to Docker Hub
-      id: push Docker
     - name: Push to Docker Hub
       uses: docker/build-push-action@v1
       with:
