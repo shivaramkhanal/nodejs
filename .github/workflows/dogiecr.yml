@@ -1,3 +1,10 @@
+name: 'GitHub Actions to build and push docker image to ECR'
+
+on: 
+  push:
+    branches:
+      - v*.*.*.* 
+        - 
 name: Publish Docker image
 on:
   release:
