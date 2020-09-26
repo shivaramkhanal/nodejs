@@ -27,6 +27,7 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
       
     - name: Push to GitHub Packages
+      id: push 
       uses: docker/build-push-action@v1
       with:
           username: ${{ github.actor }}
