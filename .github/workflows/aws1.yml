@@ -40,15 +40,12 @@ jobs:
         IMAGE_TAG: ${{ github.sha }}
 
     - name: Push to GitHub Packages
-      run: |
-        docker login -u$username -p $password $registry
-        docker tag  $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $registry/$repository:$IMAGE_TAG
-        docker push $registry/$repository:$IMAGE_TAG
-      env:
+      uses: docker/build-push-action@v1
+      with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: rupesh2010/nodejs/nodejs
-          IMAGE_TAG: ${{ github.sha }}
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: nodejs
+          repository: shivaramkhanal/nodejs/nodejs
+          tag_with_ref: true
+          
+       
